@@ -15,34 +15,19 @@ Inicialmente, diseñamos una clase denominada "MatrizGenetica" para gestionar lo
 
 Una vez se completa la lista de secuencias, procedemos a crear una matriz de dimensiones 6x6, la cual se presenta al usuario. En esta matriz, se lleva a cabo una búsqueda secuencial de secuencias de cuatro bases nitrogenadas, tanto en sentido oblicuo como horizontal y vertical. Cada vez que se identifica una de estas secuencias, se incrementa un contador.
 
-Posteriormente, al obtener la suma total del contador, se verifica si este valor es superior a uno. De ser así, se concluye que la muestra es mutante y se presenta la correspondiente respuesta. En caso contrario, si el contador no supera el valor de uno, se determina que la muestra no es mutante. 
-
+Posteriormente, al obtener la suma total del contador, se verifica si este valor es superior a uno. De ser así, se concluye que la muestra es mutante y se presenta la correspondiente respuesta. En caso contrario, si el contador no supera el valor de uno, se determina que la muestra no es mutante.
 
 
 ## Como se utiliza el codigo
 
-Explicaremos lo mas detalladamente como funciona el codigo Mutantes.py
-
-En esta línea, estamos creando una instancia de la clase MatrizGenetica del módulo m y asignándola a la variable secuenciaADN. Esto nos permite trabajar con la matriz genética utilizando la variable secuenciaADN en el resto de nuestro código.
-
-
+### 1. Crear instancia de la Clase MatrizGenetica
 ```
 secuenciaADN = m.MatrizGenetica()
 
 ```
 
 
-En las dos líneas de código siguientes, el programa realiza las siguientes acciones:
-
-#### 1- Llenar Lista de Secuencias de ADN:
-
-* Se accede a la función `llenarListaSecuenciaADN()`, la cual solicita al usuario que ingrese 6 cadenas de la secuencia de ADN, cada una con 6 bases nitrogenadas.
-* Verifica que cada secuencia tenga exactamente 6 bases nitrogenadas y que estas contengan únicamente las letras A, C, T, G.
-* Las secuencias válidas se agregan a una lista.
-
-#### 2- Crear Matriz de 6x6 a partir de la Lista de Secuencias de ADN:
-
-* Posteriormente, se utiliza la función `matrizSecuenciaADN()` para ingresar la lista de secuencias de ADN en una matriz de dimensiones 6x6.
+#### 2. Llenar Lista de Secuencias de ADN y Crear Matriz
 
 ```
 
@@ -50,81 +35,26 @@ secuenciaADN.llenarListaSecuenciaADN()
 secuenciaADN.matrizSecuenciaADN()
 
 ```
-```
-def llenarListaSecuenciaADN(self):
-    letrasBaseNitrogenada = {"A", "C", "G", "T"}
-    for _ in range(6):            
-        while True:
-            cadenaNitrogenada = input(f"INGRESE LA SECUENCIA DE BASES NITROGENADAS, TIENE QUE CONTENER 6 BASES NITROGENADAS Y COMO BASE NITROGENADA SOLO  'A', 'C', 'G' o 'T'.\n").upper()
-
-            if len(cadenaNitrogenada) == 6 and all(letra in letrasBaseNitrogenada for letra in cadenaNitrogenada):
-                self.listaBasesNitrogenadas.append(list(cadenaNitrogenada))
-                break
-            else: 
-                print(f"Valor no válido. Ingrese una cadena de longitud 6 y que el conteniendo solo sea 'A', 'C', 'G' o 'T'.")
-
-def matrizSecuenciaADN(self):
-    for i in range(6):
-        fila = self.listaBasesNitrogenadas[i]
-        self.matrizBasesNitrogenadas.append(fila.copy())
-```
-Estas operaciones son esenciales para la manipulación y representación posterior de las secuencias de ADN en forma matricial, facilitando así el análisis y búsqueda de patrones específicos en la información genética proporcionada por el usuario.
-
-En estas tres líneas de código, accedemos a una función encargada de imprimir por pantalla la matriz 6x6 que representa la secuencia de ADN construida a partir de las bases nitrogenadas ingresadas por el usuario.
-
-La instrucción `print("MATRIZ DE SECUENCIA DE ADN GENERADA A PARTIR DE BASES NITROGENADAS:\n")`
-proporciona una indicación clara al usuario sobre la naturaleza de la información que se mostrará a continuación. Luego, la función `mostrarMatriz()` de la clase `MatrizGenetica` se utiliza para imprimir visualmente la matriz 6x6 en la pantalla. Finalmente, `print()` se emplea para agregar un espacio adicional después de la matriz, mejorando la presentación del resultado.
-
+### 3. Mostrar la Matriz de Secuencia de ADN
 ```
 
 print("LA MATRIZ DE SECUENCIA DE ADN CREADA DE BASES NITROGENADAS, ES: \n")
 secuenciaADN.mostrarMatriz()
 print()
-
 ```
+### 4. Evaluar si la Secuencia de ADN es Mutante
 ```
-def mostrarMatriz(self):
-    for fila in self.matrizBasesNitrogenadas:
-        for elemento in fila:
-            print(elemento, end=" ")
-        print()
-    print()
-```
-
-En este bloque de código, se accede a una función que, a su vez, invoca otra función encargada de contabilizar las secuencias de 4 bases nitrogenadas iguales en direcciones oblicuas, verticales y horizontales. Una vez realizada esta cuantificación, se procede a la evaluación de la función `esMutante()`. Si el recuento de secuencias iguales es mayor a 1, el programa devuelve el mensaje "MUTANTE"; de lo contrario, si la cantidad es igual o menor a 1, indica que la secuencia no es mutante.
-
-```
-
 print("ESTA SECUENCIA DE ADN PERTENECE A UN HUMANO: ")
 secuenciaADN.esMutante()
 
 ```
-```
-def esMutante(self):
-    contadorEsMutante = 0
-    contadorEsMutante += self.contarSecuencias(6, 3, 1, 4)
-    contadorEsMutante += self.contarSecuencias(3, 6, 1, 4)
-    contadorEsMutante += self.contarSecuencias(3, 3, 1, 4)
-    contadorEsMutante += self.contarSecuencias(5, 2, -1, 4)
-    if contadorEsMutante > 1:
-        print("MUTANTE ")
-        print("ES DECIR, CONTIENE MAS DE 1 SECUENCIA DE CUATRO BASES NITROGENDADAS IGUALES")
-    else:
-        print("NO MUTANTE ")
-        print("ES DECIR, NO CONTIENE MAS DE 1 SECUENCIA DE CUATRO BASES NITROGENDADAS IGUALES")
 
-def contarSecuencias(self, filas, columnas, pasoFila, longitudSecuencia):
-    contadorEsMutante = 0
-    for fila in range(filas):
-        for columna in range(columnas):
-            contadorLetrasIguales = 0
-            for num in range(1, longitudSecuencia, pasoFila):
-                if self.matrizBasesNitrogenadas[fila][columna] == self.matrizBasesNitrogenadas[fila][columna+num]:
-                    contadorLetrasIguales += 1
-            if contadorLetrasIguales == (longitudSecuencia-1):
-                contadorEsMutante += 1
-```
-Esta impresión proporciona una conclusión clara y concisa sobre la evaluación de la secuencia de ADN, mejorando la legibilidad y comprensión del código.
+Estas operaciones son esenciales para la manipulación y representación posterior de las secuencias de ADN en forma matricial, facilitando así el análisis y búsqueda de patrones específicos en la información genética proporcionada por el usuario.
+
+
+
+
+
 
 
 
